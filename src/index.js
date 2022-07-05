@@ -8,12 +8,18 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 function Example(){
     const [count, setCount] = useState(0);
+    const [name, setName] = useState('sumin');
 
     return(
         <div>
             <p>You clicked {count} times</p>
             <button onClick={()=>setCount(count + 1)}>
                 Click me
+            </button>
+
+            <p>You clicked {name}</p>
+            <button onClick={()=>setName(name + '수민')}>
+                Change name
             </button>
         </div>
     );
