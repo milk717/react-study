@@ -7,12 +7,21 @@ import App from "./App";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 function Welcome(props) {
-    return <h1>Hello, {props.name}</h1>
+    return (<h1>Hello, {props.name}</h1>);
 }
 
-const element = <Welcome name="sara" />;
+function AppFunc() {
+    return (
+        <div>
+            <Welcome name="sumin"></Welcome>
+            <Welcome name="minsu"></Welcome>
+            <Welcome name="sam"></Welcome>
+        </div>
+    );
+}
+
 root.render(
-    element
+    <AppFunc/>
 );
 
 //앱 퍼포먼스를 로그로 보여줌
