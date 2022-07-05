@@ -6,22 +6,59 @@ import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-function Welcome(props) {
-    return (<h1>Hello, {props.name}</h1>);
+function formatDate(date) {
+    return date.toLocaleDateString();
 }
 
-function AppFunc() {
+const comment = {
+    date: new Date(),
+    text: 'I hope you enjoy learning React!',
+    author: {
+        name: 'Hello Kitty',
+        avatarUrl: 'http://placekitten.com/g/64/64'
+    }
+};
+
+function Avatar(props){
     return (
-        <div>
-            <Welcome name="sumin"></Welcome>
-            <Welcome name="minsu"></Welcome>
-            <Welcome name="sam"></Welcome>
+        <img className="Avatar"
+             src={props.user.avatarUrl}
+             alt={props.user.name}
+        />
+    );
+}
+
+function UserInfo(props){
+    return (
+        <div className="UserInfo">
+            <Avatar user = {props.author}/>
+            <div className="UserInfo-name">
+                {props.author.name}
+            </div>
+        </div>
+    );
+}
+
+function Comment(props) {
+    return (
+        <div className="Comment">
+            <UserInfo author = {props.author}/>
+            <div className="Comment-text">
+                {props.text}
+            </div>
+            <div className="Comment-date">
+                {formatDate(props.date)}
+            </div>
         </div>
     );
 }
 
 root.render(
-    <AppFunc/>
+    <Comment
+        date ={comment.date}
+        text ={comment.text}
+        author = {comment.author}
+    />
 );
 
 //앱 퍼포먼스를 로그로 보여줌
