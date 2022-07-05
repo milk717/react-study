@@ -12,6 +12,26 @@ class Clock extends React.Component{
         this.state = {date: new Date()};
     }
 
+    //컴포넌트가 DOM에 렌더링 될 때마다 실행됨
+    componentDidMount() {
+        this.timerId = setInterval(
+            ()=> this.tick(),
+            1000
+        );
+    }
+
+    //컴포넌트에 의해 생성된 DOM이 삭제될 때마다 실행됨
+    componentWllUnmount() {
+        //타이머의 인터벌 삭제
+        clearInterval(this.timerId);
+    }
+
+    tick(){
+        this.setState({
+            date: new Date(),
+        });
+    }
+
     render() {
         return(
             <div>
