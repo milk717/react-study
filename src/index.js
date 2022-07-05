@@ -6,24 +6,31 @@ import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-function ListItem(props) {
-    return <li>{props.value}</li>;
+class TodoListForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {value: ""}
+
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(event) {
+        this.setState({value: event.target.value});
+        console.log(this.state.value);
+    }
+
+    render() {
+        return (
+            <form>
+                <input type = "text" value = {this.state.value} onChange={this.handleChange}/>
+            </form>
+        );
+    }
 }
 
-function NumberList(props) {
-    const numbers = props.numbers;
-    const listItems = numbers.map((number) =>
-        <ListItem key={number.toString()} value = {number}/>
-    );
-    return (
-        <ul>{listItems}</ul>
-    );
-}
-
-const numbers = [1, 2, 3, 4, 5];
 
 root.render(
-    <NumberList numbers={numbers}/>
+    <TodoListForm/>
 );
 
 //앱 퍼포먼스를 로그로 보여줌
