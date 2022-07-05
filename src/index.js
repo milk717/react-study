@@ -9,6 +9,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 function Example(){
     const [count, setCount] = useState(0);
     const [name, setName] = useState('sumin');
+    const [todos, setTodos] = useState([{text: 'Learn Hooks'}]);
 
     return(
         <div>
@@ -20,6 +21,11 @@ function Example(){
             <p>You clicked {name}</p>
             <button onClick={()=>setName(name + '수민')}>
                 Change name
+            </button>
+
+            <p>useState Json Array {JSON.stringify(todos)}</p>
+            <button onClick={()=>setTodos(todos.concat({text: '새로운 내용'}))}>
+                Hook!!!
             </button>
         </div>
     );
