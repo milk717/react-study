@@ -6,21 +6,39 @@ import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-function Form(){
-    function handleSubmit(e) {
-        e.preventDefault();
-        console.log('You clicked submit.');
+class Toggle extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isToggleOn: true
+        };
+
+        // this.handleClick = this.handleClick.bind(this);
     }
 
-    return(
-        <form onSubmit={handleSubmit}>
-            <button type="submit">Submit</button>
-        </form>
-    );
-}
+    handleClick = () => {
+        this.setState(prevState => ({
+            isToggleOn: !prevState.isToggleOn
+        }));
+    }
 
+    // handleClick() {
+    //     this.setState(prevState => ({
+    //         isToggleOn: !prevState.isToggleOn
+    //     }));
+    // }
+
+    render() {
+        return(
+            <button onClick={this.handleClick}>
+                {this.state.isToggleOn ? 'ON':'OFF'}
+            </button>
+        );
+    }
+
+}
 root.render(
-    <Form/>
+    <Toggle/>
 );
 
 //앱 퍼포먼스를 로그로 보여줌
