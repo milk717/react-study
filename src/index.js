@@ -6,39 +6,25 @@ import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-class Toggle extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isToggleOn: true
-        };
-
-        // this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick = () => {
-        this.setState(prevState => ({
-            isToggleOn: !prevState.isToggleOn
-        }));
-    }
-
-    // handleClick() {
-    //     this.setState(prevState => ({
-    //         isToggleOn: !prevState.isToggleOn
-    //     }));
-    // }
-
-    render() {
-        return(
-            <button onClick={this.handleClick}>
-                {this.state.isToggleOn ? 'ON':'OFF'}
-            </button>
-        );
-    }
-
+function UserGreeting(props) {
+    return <h1>Welcome back!</h1>
 }
+
+function GuestGreeting(props) {
+    return <h1>Please sign up.</h1>
+}
+
+function Greeting(props) {
+    const isLoggedIn = props.isLoggedIn;
+    if (isLoggedIn) {
+        return <UserGreeting/>;
+    }else{
+        return <GuestGreeting/>;
+    }
+}
+
 root.render(
-    <Toggle/>
+    <Greeting isLoggedIn={false}/>
 );
 
 //앱 퍼포먼스를 로그로 보여줌
