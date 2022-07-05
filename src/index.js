@@ -6,70 +6,20 @@ import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-function UserGreeting(props) {
-    return <h1>Welcome back!</h1>
-}
-
-function GuestGreeting(props) {
-    return <h1>Please sign up.</h1>
-}
-
-function LoginButton(props) {
+function NumberList(props){
+    const numbers = props.numbers;
+    const listItems = numbers.map((number)=>
+        <li>{number}</li>
+    );
     return (
-        <button onClick={props.onClick}>
-            Login
-        </button>
+      <ul>{listItems}</ul>
     );
 }
 
-function LogoutButton(props) {
-    return (
-        <button onClick={props.onClick}>
-            Logout
-        </button>
-    );
-}
-
-function Greeting(props) {
-    const isLoggedIn = props.isLoggedIn;
-    if (isLoggedIn) {
-        return <UserGreeting/>;
-    }else{
-        return <GuestGreeting/>;
-    }
-}
-
-class LoginControl extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {isLoggedIn: false};
-    }
-
-    handleLoginClick = () => {
-        this.setState({isLoggedIn: true});
-    }
-
-    handleLogoutClick = () =>{
-        this.setState({isLoggedIn: false});
-    }
-
-    render() {
-        const isLoggedIn = this.state.isLoggedIn;
-        let button;
-
-        return (
-            <div>
-                {isLoggedIn
-                    ? <LogoutButton onClick={this.handleLogoutClick}/>
-                    : <LoginButton onClick={this.handleLoginClick}/>
-                }
-            </div>
-        );
-    }
-}
+const numbers = [1,2,3,4,5];
 
 root.render(
-    <LoginControl/>
+    <NumberList numbers={numbers}/>
 );
 
 //앱 퍼포먼스를 로그로 보여줌
