@@ -9,6 +9,8 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import Replay10Icon from '@mui/icons-material/Replay10';
 import FeaturedVideoIcon from '@mui/icons-material/FeaturedVideo';
 import PauseCircleIcon from '@mui/icons-material/PauseCircle';
+import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const ControlsWrapper = styled.div`
     position: absolute;
@@ -54,6 +56,7 @@ const ControlsIcons = styled.button`
 `;
 
 const MediaPlayer = ({playList, index}) => {
+    let navigate = useNavigate();
     const [state, setState] = useState({
         playing: true,     // 재생중인지
         muted: false,      // 음소거인지
@@ -75,6 +78,7 @@ const MediaPlayer = ({playList, index}) => {
         setState({
             ...state, pip: !state.pip
         });
+        // navigate("/");
     };
 
     return (
@@ -91,6 +95,7 @@ const MediaPlayer = ({playList, index}) => {
                     light={false}         // 플레이어 모드
                     pip={state.pip}            // pip 모드 설정 여부
                     poster={'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg'}   // 플레이어 초기 포스터 사진
+                    stopOnUnmount = {false}
                     // onEnded={() => handleVideo()}  // 플레이어 끝났을 때 이벤트
                 />
                 {/*중간 버튼*/}
@@ -111,10 +116,10 @@ const MediaPlayer = ({playList, index}) => {
                         <ControlsIcons>
                             <Forward10Icon fontSize="inherit" />
                         </ControlsIcons>
-
                         {/*이부분은 아래쪽으로 옮길거임*/}
                         <ControlsIcons onClick={handlePipButtonClick}>
-                            <FeaturedVideoIcon fontSize="inherit" />
+                            {/*<Link to="/">aaaaaaaa</Link>*/}
+                            <FeaturedVideoIcon fontSize="inherit"/>
                         </ControlsIcons>
                     </MiddleControlsWrapper>
 
