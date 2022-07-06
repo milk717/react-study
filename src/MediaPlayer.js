@@ -44,7 +44,7 @@ const MiddleControlsWrapper = styled.div`
 const ControlsIcons = styled.button`
     color: #777;
     background-color: #000;
-    font-size: 3rem;
+    font-size: 2rem;
     margin: 10px;
     transform: scale(1);
     &:hover {
@@ -62,7 +62,7 @@ const MediaPlayer = ({playList, index}) => {
         played: 0,         // 재생의 정도 (value)
         seeking: false,    // 재생바를 움직이고 있는지
         duration: 0,       // 전체 시간
-        pip: true
+        pip: false
     });
 
     const handlePlayPauseButtonClick = () =>{
@@ -72,12 +72,14 @@ const MediaPlayer = ({playList, index}) => {
     };
 
     const handlePipButtonClick = () => {
-
+        setState({
+            ...state, pip: !state.pip
+        });
     };
 
     return (
         <Container>
-            <h2>동영상 재생 페이지 입니다.</h2>
+            <h2>동영상 재생 페이지 입니다!.</h2>
             <PlayerWapper id='player'>
                 <ReactPlayer
                     url={'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'}    // 플레이어 url
@@ -87,7 +89,7 @@ const MediaPlayer = ({playList, index}) => {
                     muted={true}          // 자동 재생 on (디폴트 음소거일 때만 자동재생됨)
                     controls={true}       // 플레이어 컨트롤 노출 여부
                     light={false}         // 플레이어 모드
-                    pip={true}            // pip 모드 설정 여부
+                    pip={state.pip}            // pip 모드 설정 여부
                     poster={'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg'}   // 플레이어 초기 포스터 사진
                     // onEnded={() => handleVideo()}  // 플레이어 끝났을 때 이벤트
                 />
@@ -99,7 +101,11 @@ const MediaPlayer = ({playList, index}) => {
                         </ControlsIcons>
 
                         <ControlsIcons  onClick={handlePlayPauseButtonClick} >
-                            <PlayCircleIcon fontSize="inherit" />
+                            {!state.playing ? (
+                                <PlayCircleIcon/>
+                            ) : (
+                                <PauseCircleIcon/>
+                            )}
                         </ControlsIcons>
 
                         <ControlsIcons>
@@ -107,7 +113,7 @@ const MediaPlayer = ({playList, index}) => {
                         </ControlsIcons>
 
                         {/*이부분은 아래쪽으로 옮길거임*/}
-                        <ControlsIcons>
+                        <ControlsIcons onClick={handlePipButtonClick}>
                             <FeaturedVideoIcon fontSize="inherit" />
                         </ControlsIcons>
                     </MiddleControlsWrapper>
