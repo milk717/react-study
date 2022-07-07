@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function Main(){
+    const {state} = useLocation();
+    console.log(state);
     return(
         <div>
             <h1>메인 페이지 입니다</h1>

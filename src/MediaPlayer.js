@@ -75,10 +75,12 @@ const MediaPlayer = ({playList, index}) => {
     };
 
     const handlePipButtonClick = () => {
-        setState({
-            ...state, pip: !state.pip
-        });
-        // navigate("/");
+        navigate("/",
+            {
+                state: {
+                    text: "aa"
+                }
+            });
     };
 
     return (
@@ -91,9 +93,9 @@ const MediaPlayer = ({playList, index}) => {
                     height='100%'        // 플레이어 크기 (세로)
                     playing={state.playing}        // 자동 재생 on
                     muted={true}          // 자동 재생 on (디폴트 음소거일 때만 자동재생됨)
-                    controls={true}       // 플레이어 컨트롤 노출 여부
+                    controls={false}       // 플레이어 컨트롤 노출 여부
                     light={false}         // 플레이어 모드
-                    pip={state.pip}            // pip 모드 설정 여부
+                    pip={false}            // pip 모드 설정 여부
                     poster={'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg'}   // 플레이어 초기 포스터 사진
                     stopOnUnmount = {false}
                     // onEnded={() => handleVideo()}  // 플레이어 끝났을 때 이벤트
@@ -118,7 +120,6 @@ const MediaPlayer = ({playList, index}) => {
                         </ControlsIcons>
                         {/*이부분은 아래쪽으로 옮길거임*/}
                         <ControlsIcons onClick={handlePipButtonClick}>
-                            {/*<Link to="/">aaaaaaaa</Link>*/}
                             <FeaturedVideoIcon fontSize="inherit"/>
                         </ControlsIcons>
                     </MiddleControlsWrapper>
