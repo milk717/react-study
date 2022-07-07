@@ -23,7 +23,7 @@ const ControlsWrapper = styled.div`
     opacity:0.5;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: right;
     z-index: 1;
     visibility: hidden;
 `;
@@ -69,6 +69,7 @@ const MediaPlayer = ({playList, index}) => {
         duration: 0,       // 전체 시간
         pip: false
     });
+    const {location} = useLocation();
 
     const [data, setData] = useState(null);
     useEffect(()=>{
@@ -113,13 +114,17 @@ const MediaPlayer = ({playList, index}) => {
     const handleForwardButtonClick =
         ()=>{videoRef.current.seekTo(videoRef.current.getCurrentTime()+10);}
 
+    useEffect(() => {
+        videoRef.current.seekTo(location.currentTime,"seconds");
+    }, []);
+
     return (
         <Container>
             <h2>동영상 보기 페이지</h2>
-            <PlayerWapper id='player'>
+            <PlayerWapper>
                 <ReactPlayer
                     ref={videoRef}
-                    url={'https://www.youtube.com/watch?v=aM-YEkE2MIU&list=RDaM-YEkE2MIU&start_radio=1'}    // 플레이어 url
+                    url={'https://www.youtube.com/watch?v=htgr3pvBr-I&list=RDhtgr3pvBr-I&start_radio=1'}    // 플레이어 url
                     width='100%'         // 플레이어 크기 (가로)
                     height='100%'        // 플레이어 크기 (세로)
                     playing={state.playing}        // 자동 재생 on
