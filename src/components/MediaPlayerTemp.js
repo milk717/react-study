@@ -9,6 +9,10 @@ import PauseCircleIcon from '@mui/icons-material/PauseCircle';
 import { useNavigate } from "react-router-dom";
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@mui/material';
+import {getMediaData} from '../apis/api/media';
+import {getMediaDataInfo} from '../apis/services/media';
+import axios from 'axios';
+import instance from '../apis/utils/index';
 
 const MediaControlWrapper = styled.div`
     position: absolute;
@@ -37,7 +41,15 @@ const MediaPlayerWrapper = styled.div`
 const MediaPlayerTemp = ({playTime}) =>{
     let videoRef = useRef(null);
 
+    const [mediaData, setMediaData] = useState([]);
     let url = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+
+    (async () =>{
+        await getMediaData(1)
+            .then(getMediaDataInfo)
+            .then((res)=>setMediaData(res))
+    })()
+
 
     const handleVideoStart = () =>{
         videoRef.current.seekTo(playTime);
