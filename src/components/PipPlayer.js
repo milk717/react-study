@@ -1,14 +1,9 @@
-import { Link, useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { useNavigate } from "react-router-dom";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 import ReactPlayer from 'react-player/lazy';
-import Forward10Icon from '@mui/icons-material/Forward10';
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import Replay10Icon from '@mui/icons-material/Replay10';
 import FeaturedVideoIcon from '@mui/icons-material/FeaturedVideo';
-import PauseCircleIcon from '@mui/icons-material/PauseCircle';
-import Button from '@mui/material/Button';
 
 const ControlsWrapper = styled.div`
     position: absolute;
@@ -55,23 +50,28 @@ const ControlsIcons = styled.button`
     };
 `;
 
-const PipPlayer = ({currentTime, url, poster}) => {
+const PipPlayer = ({playTime}) => {
     let navigate = useNavigate();
     const videoRef = useRef();
-    // useEffect(() => {
-    //     videoRef.current.seekTo(currentTime,"seconds");
-    // }, []);
+
+
+    const handleVideoStart = () =>{
+        videoRef.current.seekTo(playTime);
+    };
 
     const handlePipBackButton = () =>{
-        let currentTime = videoRef.current.getCurrentTime();
-        navigate("/player",
+        let time = videoRef.current.getCurrentTime();
+        console.log(time);
+        navigate("/watch",
             {
                 state: {
-                    currentTime : currentTime,
+                    playTime : time,
                 }
             }
         );
     };
+
+    let url = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
 
     return(
         <Div>
@@ -84,7 +84,7 @@ const PipPlayer = ({currentTime, url, poster}) => {
                     playing={true}        // 자동 재생 on
                     muted={true}          // 자동 재생 on
                     controls={false}       // 플레이어 컨트롤 노출 여부
-                    poster={poster}   // 플레이어 초기 포스터 사진
+                    onStart={handleVideoStart}
                 />
                 <ControlsWrapper>
                     <Button onClick={handlePipBackButton} disableRipple>
@@ -92,48 +92,8 @@ const PipPlayer = ({currentTime, url, poster}) => {
                     </Button>
                 </ControlsWrapper>
             </PipPlayerWapper>
-
         </Div>
     );
 };
 
-function Main(){
-    const {state} = useLocation();
-    let navigate = useNavigate();
-
-     const handleButtonClick = ()=>{
-         navigate(
-             "/player",
-             {
-                 state:{
-                     id: 0
-                 }
-             },
-         );
-     }
-
-    return(
-        <div>
-            <div>
-                <h1>메인 페이지 입니다</h1>
-                <button onClick={handleButtonClick}>
-                    첫 번째 동영상
-                </button>
-                <button onClick={()=>handleButtonClick(1)}>
-                    두 번째 동영상
-                </button>
-            </div>
-            {
-                (state.isPip)
-                ? <PipPlayer
-                        currentTime = {state.currentTime}
-                        url = {state.url}
-                        poster = {state.poster}
-                    />
-                : null
-            }
-        </div>
-    );
-}
-
-export default Main;
+export default PipPlayer;
