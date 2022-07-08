@@ -17,11 +17,10 @@ function Main(){
     const [playTime, setPlayTime] = useState(0);
     const [isPip, setIsPip] = useState(false);
 
-
      const handleButtonClick = ()=>{
          navigate('/watch', {
              state:{
-                 playTime: 10,
+                 playTime: playTime,
              },
          });
      };

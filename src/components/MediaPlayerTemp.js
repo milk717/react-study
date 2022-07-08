@@ -34,26 +34,6 @@ const MediaPlayerWrapper = styled.div`
     };
 `;
 
-const PipButton = ({playTime, isPip}) =>{
-    let navigate = useNavigate();
-
-    const handlePipButtonClick = () =>{
-        navigate( "/",
-            {
-                state:{
-                    playTime: playTime,
-                    isPip: isPip
-                }
-            }
-        );
-    };
-
-    return(
-        <Button onClick={handlePipButtonClick} startIcon={<FeaturedVideoIcon/>}>
-        </Button>
-    );
-};
-
 const MediaPlayerTemp = ({playTime}) =>{
     let videoRef = useRef(null);
 
@@ -61,6 +41,20 @@ const MediaPlayerTemp = ({playTime}) =>{
 
     const handleVideoStart = () =>{
         videoRef.current.seekTo(playTime);
+    };
+
+    let navigate = useNavigate();
+
+    const handlePipButtonClick = () =>{
+        let time = videoRef.current.getCurrentTime();
+        navigate( "/",
+            {
+                state:{
+                    playTime: time,
+                    isPip: true
+                }
+            }
+        );
     };
 
     return(
@@ -78,7 +72,8 @@ const MediaPlayerTemp = ({playTime}) =>{
                     onStart = {handleVideoStart}
                 />
                 <MediaControlWrapper>
-                    <PipButton playTime = {playTime} isPip = {true}/>
+                    <Button onClick={handlePipButtonClick} startIcon={<FeaturedVideoIcon/>}>
+                    </Button>
                 </MediaControlWrapper>
             </MediaPlayerWrapper>
         </div>
