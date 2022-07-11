@@ -65,7 +65,8 @@ const PipPlayer = ({state}) => {
         navigate("/watch",
             {
                 state: {
-                    playTime : time,
+                    id: state.id,
+                    playTime: time
                 }
             }
         );

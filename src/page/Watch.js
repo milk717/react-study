@@ -7,8 +7,8 @@ import {getMediaDataInfo} from '../apis/services/mediaService';
 function Watch(){
     const location = useLocation();
     const [mediaData, setMediaData] = useState([]);
+    const [playTime, setPlayTime] = useState(0);
 
-    //이 로직은 main화면에서 영상보기 버튼을 눌러서 진입할 때만 실행됨
     //Main.js에서 받은 id값을 이용해서 api 호출해서 영상 data정보 나타내기
     useEffect(() => {
         (async (value) => {
@@ -16,13 +16,13 @@ function Watch(){
                 .then((value) => getMediaDataInfo(value))
                 .then((value) => setMediaData(value));
         })();
-        console.log(mediaData);
+        setPlayTime(location.state.playTime);
     },[]);
 
     return(
         <>
             <MediaPlayerTemp
-                mediaData = {mediaData}
+                mediaData = {mediaData} playTime={playTime}
             />
         </>
     );

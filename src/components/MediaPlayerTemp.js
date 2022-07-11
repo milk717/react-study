@@ -36,12 +36,12 @@ const MediaPlayerWrapper = styled.div`
     };
 `;
 
-const MediaPlayerTemp = ({mediaData}) =>{
+const MediaPlayerTemp = ({mediaData, playTime}) =>{
     let videoRef = useRef(null);
 
     const handleVideoStart = () =>{
-        // console.log(`watch page 에서 재생 시간 정보 ${state.playTime}`);
-        // videoRef.current.seekTo(playTime);
+        console.log(`watch page 에서 재생 시간 정보 ${playTime}`);
+        videoRef.current.seekTo(playTime);
     };
 
     let navigate = useNavigate();
