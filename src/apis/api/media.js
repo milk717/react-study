@@ -5,6 +5,7 @@ export const getMediaData = async (mediaId) => {
         const response = await instance.get(
             `/mediaDummy/${mediaId}.json`,
         );
+        // console.log(response.data);
         return response.data;
     } catch (error){
         console.log(error);

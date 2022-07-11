@@ -50,18 +50,18 @@ const ControlsIcons = styled.button`
     };
 `;
 
-const PipPlayer = ({playTime}) => {
+const PipPlayer = ({state}) => {
     let navigate = useNavigate();
     const videoRef = useRef();
 
-
     const handleVideoStart = () =>{
-        videoRef.current.seekTo(playTime);
+        console.log(`pip player 시작 시 재생 시간 정보 ${state.playTime}`);
+        videoRef.current.seekTo(state.playTime);
     };
 
     const handlePipBackButton = () =>{
         let time = videoRef.current.getCurrentTime();
-        console.log(time);
+
         navigate("/watch",
             {
                 state: {
@@ -71,14 +71,12 @@ const PipPlayer = ({playTime}) => {
         );
     };
 
-    let url = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
-
     return(
         <Div>
             <PipPlayerWapper>
                 <ReactPlayer
                     ref={videoRef}
-                    url={url}    // 플레이어 url
+                    url={state.url}    // 플레이어 url
                     width='300px'         // 플레이어 크기 (가로)
                     height='100%'        // 플레이어 크기 (세로)
                     playing={true}        // 자동 재생 on

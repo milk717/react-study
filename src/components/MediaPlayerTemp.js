@@ -9,8 +9,6 @@ import PauseCircleIcon from '@mui/icons-material/PauseCircle';
 import { useNavigate } from "react-router-dom";
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@mui/material';
-import {getMediaData} from '../apis/api/media';
-import {getMediaDataInfo} from '../apis/services/media';
 import axios from 'axios';
 import instance from '../apis/utils/index';
 
@@ -38,21 +36,12 @@ const MediaPlayerWrapper = styled.div`
     };
 `;
 
-const MediaPlayerTemp = ({playTime}) =>{
+const MediaPlayerTemp = ({mediaData}) =>{
     let videoRef = useRef(null);
 
-    const [mediaData, setMediaData] = useState([]);
-    let url = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
-
-    (async () =>{
-        await getMediaData(1)
-            .then(getMediaDataInfo)
-            .then((res)=>setMediaData(res))
-    })()
-
-
     const handleVideoStart = () =>{
-        videoRef.current.seekTo(playTime);
+        // console.log(`watch page 에서 재생 시간 정보 ${state.playTime}`);
+        // videoRef.current.seekTo(playTime);
     };
 
     let navigate = useNavigate();
@@ -62,8 +51,12 @@ const MediaPlayerTemp = ({playTime}) =>{
         navigate( "/",
             {
                 state:{
+                    //재생 정보 관련
                     playTime: time,
-                    isPip: true
+                    isPip: true,
+                    //동영상 데이터 관련
+                    id: mediaData['id'],
+                    url: mediaData['url'],
                 }
             }
         );
@@ -71,16 +64,17 @@ const MediaPlayerTemp = ({playTime}) =>{
 
     return(
         <div>
-            <h2>동영상 제목</h2>
+            <h2>{mediaData['title']}</h2>
             <MediaPlayerWrapper>
                 <ReactPlayer
                     ref={videoRef}
-                    url={url}    // 플레이어 url
+                    url={mediaData['url']}    // 플레이어 url
                     width='100%'         // 플레이어 크기 (가로)
                     height='100%'
                     playing={true}        // 자동 재생 on
                     muted={true}          // 자동 재생 on (디폴트 음소거일 때만 자동재생됨)
                     controls={false}       // 플레이어 컨트롤 노출 여부
+                    poster={mediaData['poster']}
                     onStart = {handleVideoStart}
                 />
                 <MediaControlWrapper>
@@ -88,6 +82,7 @@ const MediaPlayerTemp = ({playTime}) =>{
                     </Button>
                 </MediaControlWrapper>
             </MediaPlayerWrapper>
+            <p>{mediaData['date']}</p>
         </div>
     );
 };

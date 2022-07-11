@@ -11,25 +11,38 @@ import PauseCircleIcon from '@mui/icons-material/PauseCircle';
 import Button from '@mui/material/Button';
 import PipPlayer from '../components/PipPlayer';
 
+
 function Main(){
     const location = useLocation();  //맨 처음 메인 페이지 진입할 때는 null
     let navigate = useNavigate();
-    const [playTime, setPlayTime] = useState(0);
-    const [isPip, setIsPip] = useState(false);
+    //영상 정보를 하나의 state 객체로 관리
+    const [state, setState] = useState({
+        id: 0,
+        url: '',
+        playTime: 0,
+        isPip: false
+    });
+    //state 비구조화 할당
+    const {id, url, playTime, isPip} = state;
 
      const handleButtonClick = ()=>{
          navigate('/watch', {
              state:{
-                 playTime: playTime,
+                 id: 0
              },
          });
      };
 
+    //메인화면 처음 진입할 때는 실행 x
+    //동영상 보기 화면에서 pip 버튼 눌러서 main으로 돌아왔을 때만 실행됨
      useEffect(()=>{
          if(location.state != null){
-             setIsPip(location.state.isPip);
-             setPlayTime(location.state.playTime);
-             console.log('useEffect');
+            setState({
+                id: location.state.id,
+                url: location.state.url,
+                playTime: location.state.playTime,
+                isPip: location.state.isPip,
+            });
          }
      },[]);
 
@@ -43,7 +56,7 @@ function Main(){
                 </button>
                 {
                     (isPip)
-                    ? <PipPlayer playTime ={playTime}/>
+                    ? <PipPlayer state={state}/>
                     : null
                 }
             </div>
