@@ -2,6 +2,7 @@ import {Component} from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './page/Main';
 import Watch from './page/Watch';
+import './redux/exercise';
 
 const App = () => {
     return (

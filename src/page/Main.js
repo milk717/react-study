@@ -11,7 +11,6 @@ import PauseCircleIcon from '@mui/icons-material/PauseCircle';
 import Button from '@mui/material/Button';
 import PipPlayer from '../components/PipPlayer';
 
-
 function Main(){
     const location = useLocation();  //맨 처음 메인 페이지 진입할 때는 null
     let navigate = useNavigate();
@@ -28,7 +27,7 @@ function Main(){
      const handleButtonClick = ()=>{
          navigate('/watch', {
              state:{
-                 id: 0
+                 id: 2
              },
          });
      };
