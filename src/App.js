@@ -2,7 +2,7 @@ import {Component} from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './page/Main';
 import Watch from './page/Watch';
-import './redux/exercise';
+import Redux from './redux/components/Counter'
 
 const App = () => {
     return (
@@ -11,6 +11,7 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<Main/>}></Route>
                     <Route path="/watch/*" element={<Watch/>}></Route>
+                    <Route path="/redux/*" element={<Redux/>}></Route>
                 </Routes>
             </BrowserRouter>
         </div>
